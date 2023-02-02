@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="DBModel.Admin">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bais">
+      <EntityTypeMapping TypeName="DBModel.Bai">
+        <MappingFragment StoreEntitySet="Bais">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenBai" ColumnName="TenBai" />
+          <ScalarProperty Name="Meta" ColumnName="Meta" />
+          <ScalarProperty Name="IdChuong" ColumnName="IdChuong" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CauHois">
+      <EntityTypeMapping TypeName="DBModel.CauHois">
+        <MappingFragment StoreEntitySet="CauHois">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CauHoi" ColumnName="CauHoi" />
+          <ScalarProperty Name="dap_an_a" ColumnName="dap_an_a" />
+          <ScalarProperty Name="dap_an_b" ColumnName="dap_an_b" />
+          <ScalarProperty Name="dap_an_c" ColumnName="dap_an_c" />
+          <ScalarProperty Name="dap_an_d" ColumnName="dap_an_d" />
+          <ScalarProperty Name="IdDapAn" ColumnName="IdDapAn" />
+          <ScalarProperty Name="ghi_chu" ColumnName="ghi_chu" />
+          <ScalarProperty Name="DaPheDuyet" ColumnName="DaPheDuyet" />
+          <ScalarProperty Name="IdBai" ColumnName="IdBai" />
+          <ScalarProperty Name="IdMucDo" ColumnName="IdMucDo" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Chuongs">
+      <EntityTypeMapping TypeName="DBModel.Chuong">
+        <MappingFragment StoreEntitySet="Chuongs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenChuong" ColumnName="TenChuong" />
+          <ScalarProperty Name="Meta" ColumnName="Meta" />
+          <ScalarProperty Name="idMonHoc" ColumnName="idMonHoc" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DapAns">
+      <EntityTypeMapping TypeName="DBModel.DapAn">
+        <MappingFragment StoreEntitySet="DapAns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DapAn1" ColumnName="DapAn" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Days">
+      <EntityTypeMapping TypeName="DBModel.Day">
+        <MappingFragment StoreEntitySet="Days">
+          <ScalarProperty Name="IdGiaoVien" ColumnName="IdGiaoVien" />
+          <ScalarProperty Name="IdMonHoc" ColumnName="IdMonHoc" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeThis">
+      <EntityTypeMapping TypeName="DBModel.DeThi">
+        <MappingFragment StoreEntitySet="DeThis">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
+          <ScalarProperty Name="ThoiGianThi" ColumnName="ThoiGianThi" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GiaoViens">
+      <EntityTypeMapping TypeName="DBModel.GiaoVien">
+        <MappingFragment StoreEntitySet="GiaoViens">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HocSinhs">
+      <EntityTypeMapping TypeName="DBModel.HocSinh">
+        <MappingFragment StoreEntitySet="HocSinhs">
+          <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
+          <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="IdNhom" ColumnName="IdNhom" />
+          <ScalarProperty Name="IdKhoa" ColumnName="IdKhoa" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KetQuas">
+      <EntityTypeMapping TypeName="DBModel.KetQua">
+        <MappingFragment StoreEntitySet="KetQuas">
+          <ScalarProperty Name="IdThanhVien" ColumnName="IdThanhVien" />
+          <ScalarProperty Name="IdDeThi" ColumnName="IdDeThi" />
+          <ScalarProperty Name="IdCauHoi" ColumnName="IdCauHoi" />
+          <ScalarProperty Name="DapAn" ColumnName="DapAn" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Khoas">
+      <EntityTypeMapping TypeName="DBModel.Khoa">
+        <MappingFragment StoreEntitySet="Khoas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenKhoa" ColumnName="TenKhoa" />
+          <ScalarProperty Name="Meta" ColumnName="Meta" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonHocs">
+      <EntityTypeMapping TypeName="DBModel.MonHoc">
+        <MappingFragment StoreEntitySet="MonHocs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenMonHoc" ColumnName="TenMonHoc" />
+          <ScalarProperty Name="Meta" ColumnName="Meta" />
+          <ScalarProperty Name="IdKhoa" ColumnName="IdKhoa" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MucDoKhos">
+      <EntityTypeMapping TypeName="DBModel.MucDoKho">
+        <MappingFragment StoreEntitySet="MucDoKhos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TenMucDo" ColumnName="TenMucDo" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
