@@ -17,111 +17,63 @@ namespace WebTracNghiem.Areas.admin.Controllers
         // GET: admin/Khoa
         public ActionResult Index()
         {
-            return View(db.Khoas.ToList());
-        }
-
-        // GET: admin/Khoa/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Khoa khoa = db.Khoas.Find(id);
-            if (khoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khoa);
-        }
-
-        // GET: admin/Khoa/Create
-        public ActionResult Create()
-        {
             return View();
         }
+        [HttpGet]
+        public JsonResult DsKhoa()
+        {
+            try
+            {
+                var dsKhoa= (from k in db.Khoas.Where(x=>x.DaXoa !=1)//chỉ lấy những khoa chưa bị xóa
+                            select new
+                            {
+                                Id=k.Id,
+                                TenKhoa = k.TenKhoa,
+                                Meta=k.Meta
+                            }).ToList();
+                return Json(new {code = 200,dsKhoa=dsKhoa, msg="Lấy danh sách khoa thành công"},JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
 
-        // POST: admin/Khoa/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+                return Json(new { code = 500, msg = "Lấy danh sách khoa thất bại: " + ex.Message },JsonRequestBehavior.AllowGet);
+            }
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TenKhoa,Meta,DaXoa")] Khoa khoa)
+        public JsonResult AddKhoa(string tenKhoa,string meta)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Khoas.Add(khoa);
+                var k = new Khoa();
+                k.TenKhoa=tenKhoa;
+                k.Meta = meta;
+
+                db.Khoas.Add(k);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(khoa);
+                return Json(new { code = 200, msg = "Thêm mới khoa thành công!" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { code = 500, msg = "Thêm mưới khoa thất bại.Lỗi: " } + ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        // GET: admin/Khoa/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpGet]
+        public JsonResult ChiTiet(int id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var k = db.Khoas.SingleOrDefault(x => x.Id == id);
+                return Json(new { code = 200, K = k, msg = "Lấy thông tin chi tiết của khoa thành công" }, JsonRequestBehavior.AllowGet);
             }
-            Khoa khoa = db.Khoas.Find(id);
-            if (khoa == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
-            }
-            return View(khoa);
-        }
 
-        // POST: admin/Khoa/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TenKhoa,Meta,DaXoa")] Khoa khoa)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(khoa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(khoa);
-        }
+                return Json(new { code = 500, msg = "Lấy thông tin chi tiết của khoa thất bại"+ex.Message }, JsonRequestBehavior.AllowGet);
 
-        // GET: admin/Khoa/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Khoa khoa = db.Khoas.Find(id);
-            if (khoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khoa);
-        }
-
-        // POST: admin/Khoa/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Khoa khoa = db.Khoas.Find(id);
-            db.Khoas.Remove(khoa);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

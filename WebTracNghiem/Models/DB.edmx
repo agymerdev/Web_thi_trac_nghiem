@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TracNghiemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admins">
           <Key>
             <PropertyRef Name="TaiKhoan" />
@@ -90,6 +90,7 @@
           <Property Name="SoDienThoai" Type="varchar" MaxLength="30" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="150" />
+          <Property Name="LaTruongBM" Type="tinyint" />
           <Property Name="DaXoa" Type="tinyint" />
         </EntityType>
         <EntityType Name="HocSinhs">
@@ -289,7 +290,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBModelStoreContainer">
+        <EntityContainer Name="TracNghiemModelStoreContainer">
           <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bais" EntityType="Self.Bais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CauHois" EntityType="Self.CauHois" Schema="dbo" store:Type="Tables" />
@@ -356,7 +357,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TracNghiemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="TaiKhoan" />
@@ -454,6 +455,7 @@
           <Property Name="SoDienThoai" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LaTruongBM" Type="Byte" />
           <Property Name="DaXoa" Type="Byte" />
           <NavigationProperty Name="Days" Relationship="Self.FK_Days_GiaoViens" FromRole="GiaoViens" ToRole="Days" />
         </EntityType>
@@ -733,9 +735,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+        <EntityContainerMapping StorageEntityContainer="TracNghiemModelStoreContainer" CdmEntityContainer="DBEntities">
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="DBModel.Admin">
+            <EntityTypeMapping TypeName="TracNghiemModel.Admin">
               <MappingFragment StoreEntitySet="Admins">
                 <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
@@ -743,7 +745,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bais">
-            <EntityTypeMapping TypeName="DBModel.Bai">
+            <EntityTypeMapping TypeName="TracNghiemModel.Bai">
               <MappingFragment StoreEntitySet="Bais">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenBai" ColumnName="TenBai" />
@@ -754,7 +756,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CauHois">
-            <EntityTypeMapping TypeName="DBModel.CauHois">
+            <EntityTypeMapping TypeName="TracNghiemModel.CauHois">
               <MappingFragment StoreEntitySet="CauHois">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CauHoi" ColumnName="CauHoi" />
@@ -776,7 +778,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Chuongs">
-            <EntityTypeMapping TypeName="DBModel.Chuong">
+            <EntityTypeMapping TypeName="TracNghiemModel.Chuong">
               <MappingFragment StoreEntitySet="Chuongs">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenChuong" ColumnName="TenChuong" />
@@ -787,7 +789,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DapAns">
-            <EntityTypeMapping TypeName="DBModel.DapAn">
+            <EntityTypeMapping TypeName="TracNghiemModel.DapAn">
               <MappingFragment StoreEntitySet="DapAns">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DapAn1" ColumnName="DapAn" />
@@ -796,7 +798,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Days">
-            <EntityTypeMapping TypeName="DBModel.Day">
+            <EntityTypeMapping TypeName="TracNghiemModel.Day">
               <MappingFragment StoreEntitySet="Days">
                 <ScalarProperty Name="IdGiaoVien" ColumnName="IdGiaoVien" />
                 <ScalarProperty Name="IdMonHoc" ColumnName="IdMonHoc" />
@@ -805,7 +807,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeThis">
-            <EntityTypeMapping TypeName="DBModel.DeThi">
+            <EntityTypeMapping TypeName="TracNghiemModel.DeThi">
               <MappingFragment StoreEntitySet="DeThis">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NgayThi" ColumnName="NgayThi" />
@@ -815,7 +817,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GiaoViens">
-            <EntityTypeMapping TypeName="DBModel.GiaoVien">
+            <EntityTypeMapping TypeName="TracNghiemModel.GiaoVien">
               <MappingFragment StoreEntitySet="GiaoViens">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
@@ -824,12 +826,13 @@
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="LaTruongBM" ColumnName="LaTruongBM" />
                 <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HocSinhs">
-            <EntityTypeMapping TypeName="DBModel.HocSinh">
+            <EntityTypeMapping TypeName="TracNghiemModel.HocSinh">
               <MappingFragment StoreEntitySet="HocSinhs">
                 <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
@@ -844,7 +847,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KetQuas">
-            <EntityTypeMapping TypeName="DBModel.KetQua">
+            <EntityTypeMapping TypeName="TracNghiemModel.KetQua">
               <MappingFragment StoreEntitySet="KetQuas">
                 <ScalarProperty Name="IdThanhVien" ColumnName="IdThanhVien" />
                 <ScalarProperty Name="IdDeThi" ColumnName="IdDeThi" />
@@ -855,7 +858,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Khoas">
-            <EntityTypeMapping TypeName="DBModel.Khoa">
+            <EntityTypeMapping TypeName="TracNghiemModel.Khoa">
               <MappingFragment StoreEntitySet="Khoas">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenKhoa" ColumnName="TenKhoa" />
@@ -865,7 +868,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MonHocs">
-            <EntityTypeMapping TypeName="DBModel.MonHoc">
+            <EntityTypeMapping TypeName="TracNghiemModel.MonHoc">
               <MappingFragment StoreEntitySet="MonHocs">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenMonHoc" ColumnName="TenMonHoc" />
@@ -876,7 +879,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MucDoKhos">
-            <EntityTypeMapping TypeName="DBModel.MucDoKho">
+            <EntityTypeMapping TypeName="TracNghiemModel.MucDoKho">
               <MappingFragment StoreEntitySet="MucDoKhos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TenMucDo" ColumnName="TenMucDo" />

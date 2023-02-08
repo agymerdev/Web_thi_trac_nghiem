@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WebTracNghiem.Models.Khoa>
-
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
@@ -7,40 +6,163 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button class="btn btn-success" id="btnAdd"><i class='fa fa-plus'></i>Thêm khoa</button>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenKhoa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Meta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DaXoa)
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+                Tên khoa
+            </th>
+            <th>
+                Thẻ meta
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenKhoa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Meta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DaXoa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="tblDsKhoa">
+    </tbody>
+
+
 
 </table>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" id="modalkhoa">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="modalTitle">Panel with panel-primary class</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label>Tên Khoa</label>
+                        <input type="text" class="form-control" id="tenKhoa" placeholder="Tên khoa">
+                    </div>
+                    <div class="form-group">
+                        <label>Thẻ meta</label>
+                        <input type="text" class="form-control" id="meta" placeholder="Thẻ meta">
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSubmit">Xác nhận</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            LoadDsKhoa();
+        });
+
+        //sự kiện click button chi tiết của mỗi dòng table
+        $(document).on('click', "button[name='view']", function () {
+            let idKhoa = $(this).closest('tr').attr('id');
+            $.ajax({
+                url: '/admin/khoa/ChiTiet',
+                type: 'get',
+                data: {
+                    id: idKhoa
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        //nếu lấy thông tin khoa thành công
+                        $('#tenKhoa').val(data.K.TenKhoa);
+                        $('#meta').val(data.K.Meta);
+
+                        //không cho chỉnh sửa các giá trị
+                        $('#tenKhoa').prop('readonly', true);
+                        $('#meta').prop('readonly', true);
+
+                        //ẩn button xác nhận
+                        $('#btnSubmit').hide();
+
+                        $('#modalkhoa').modal();
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
+        });
+
+        //sự kiện click button xác nhận
+        $('#btnSubmit').click(function () {
+            let tenKhoa = $('#tenKhoa').val().trim();
+            let meta = $('#meta').val().trim();
+            //rằng buộc dữ liệu
+            if (tenKhoa.length == 0 || meta.length == 0) {
+                alert('Vui lòng nhập đầy đủ dữ liệu để tiếp tục');
+                return;
+            }
+
+            //dùng ajax để thêm mới khoa
+            $.ajax({
+                url: '/admin/khoa/AddKhoa',
+                type: 'post',
+                data: {
+                    tenKhoa: tenKhoa,
+                    meta: meta
+                },
+                success: function (data) {
+                    if (data.code == 200) {
+                        alert(data.msg);
+                        LoadDsKhoa();//thêm mới thành công thì load lại ds khoa
+                        //reset lại 2 texbox
+                        let tenKhoa = $('#tenKhoa').val('');
+                        let meta = $('#meta').val('');
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+        //sự kiện click của button thêm mới khoa
+        $('#btnAdd').click(function () {
+            $('#modalTitle').text('Thêm mới khoa');
+            $('#modalkhoa').modal();
+        })
+
+        //hàm load danh sách khoa đổ vào table
+        function LoadDsKhoa() {
+            //dùng ajax để load danh sách lớp trong controller khoa
+            $.ajax({
+                url: '/admin/khoa/DsKhoa',
+                type: 'get',
+                success: function (data) {
+                    //console.log(data);
+                    if (data.code == 200) {
+                        $('#tblDsKhoa').empty();
+                        $.each(data.dsKhoa, function (k, v) {
+                            let tr = '<tr id="' + v.Id + '">'
+                            tr += '<td class="col-sm-5">' + v.TenKhoa + '</td>';
+                            tr += '<td class="col-sm-5">' + v.Meta + '</td>';
+                            tr += '<td class="col-sm-2 text-right" >';
+                            tr += '<button class ="btn btn-xs btn-info" name="view"><i class="fa fa-info-circle" aria-hidden="true"></i></button>&nbsp;';
+                            tr += '<button class ="btn btn-xs btn-warning" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>&nbsp;';
+                            tr += '<button class ="btn btn-xs btn-danger" name="delete"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                            tr += '</td>';
+                            tr += '</tr>';
+                            $('#tblDsKhoa').append(tr);
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+
+
+}
